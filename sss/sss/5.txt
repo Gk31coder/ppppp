@@ -1,0 +1,78 @@
+interface Vehicle {
+    void speedup();
+    void gearchange();
+    void applybrakes();
+}
+
+class Bicycle implements Vehicle {
+    @Override
+    public void speedup() {
+        System.out.println("Speed of bicycle can be changed by rider.");
+    }
+
+    @Override
+    public void gearchange() {
+        System.out.println("Bicycle does not have gears.");
+    }
+
+    @Override
+    public void applybrakes() {
+        System.out.println("We can apply brakes to the bicycle by pressing the brake.");
+    }
+}
+
+class Car implements Vehicle {
+    @Override
+    public void speedup() {
+        System.out.println("Car speed can be managed by accelerator.");
+    }
+
+    @Override
+    public void gearchange() {
+        System.out.println("Car has gears.");
+    }
+
+    @Override
+    public void applybrakes() {
+        System.out.println("Car can be stopped by applying brakes.");
+    }
+}
+
+class Bike implements Vehicle {
+    @Override
+    public void speedup() {
+        System.out.println("We can speed up the bike by applying the accelerator using hands.");
+    }
+
+    @Override
+    public void gearchange() {
+        System.out.println("We can change gears of the bike using hands.");
+    }
+
+    @Override
+    public void applybrakes() {
+        System.out.println("We can apply brakes to the bike by hands.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("----------------------------------BICYCLE------------------------------------");
+        Bicycle b1 = new Bicycle();
+        b1.speedup();
+        b1.gearchange();
+        b1.applybrakes();
+
+        System.out.println("----------------------------------CAR----------------------------------------");
+        Car b2 = new Car();
+        b2.speedup();
+        b2.gearchange();
+        b2.applybrakes();
+
+        System.out.println("----------------------------------BIKE---------------------------------------");
+        Bike b3 = new Bike();
+        b3.speedup();
+        b3.gearchange();
+        b3.applybrakes();
+    }
+}

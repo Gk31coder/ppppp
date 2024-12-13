@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Exception {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int num1, num2;
+        
+        try {
+            System.out.println("Enter the first number (Num1): ");
+            num1 = Integer.parseInt(scanner.nextLine());
+            
+            System.out.println("Enter the second number (Num2): ");
+            num2 = Integer.parseInt(scanner.nextLine());
+
+            int result = num1 / num2;
+            System.out.println("Result of division: " + result);
+
+            int[] arr = new int[2];
+            System.out.println("Accessing array element at index 3: " + arr[3]);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Number Format Exception: Please enter valid integers.");
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic Exception: Division by zero is not allowed.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array Index Out Of Bounds Exception: Invalid array index.");
+        } finally {
+            scanner.close();
+            System.out.println("Program Execution Completed.");
+        }
+    }
+}

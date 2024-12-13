@@ -1,0 +1,41 @@
+import java.util.*;
+
+abstract class Shape {
+    int side1, side2;
+
+    void get() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter first side:");
+        side1 = sc.nextInt();
+        System.out.println("Enter second side:");
+        side2 = sc.nextInt();
+    }
+
+    abstract void compute();
+}
+
+class Rectangle extends Shape {
+    void compute() {
+        int area = side1 * side2;
+        System.out.println("Area of rectangle: " + area);
+    }
+}
+
+class Triangle extends Shape {
+    void compute() {
+        double area = 0.5 * side1 * side2;
+        System.out.println("Area of triangle: " + area);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Shape r = new Rectangle();
+        r.get();
+        r.compute();
+
+        Shape t = new Triangle();
+        t.get();
+        t.compute();
+    }
+}

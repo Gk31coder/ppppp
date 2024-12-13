@@ -1,0 +1,128 @@
+import java.io.*;
+import java.util.Scanner;
+
+class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String studentId, name, studentClass, address;
+    private int rollNo;
+    private double marks;
+
+    public Student(String studentId, String name, int rollNo, String studentClass, double marks, String address) {
+        this.studentId = studentId;
+        this.name = name;
+        this.rollNo = rollNo;
+        this.studentClass = studentClass;
+        this.marks = marks;
+        this.address = address;
+    }
+
+    public String getStudentId() { return studentId; }
+    public void setMarks(double marks) { this.marks = marks; }
+
+    public void display() {
+        System.out.printf("%-10s %-15s %-8d %-8s %-6.2f %-20s\n", studentId, name, rollNo, studentClass, marks, address);
+    }
+}
+
+public class StudentRecordsDatabase {
+    private static final String FILE_NAME = "student_records.dat";
+
+    public static void saveToFile(Student student) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(FILE_NAME, true);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(student);
+        }
+    }
+
+    public static void displayRecords() {
+        try (FileInputStream fis = new FileInputStream(FILE_NAME);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            System.out.printf("%-10s %-15s %-8s %-8s %-6s %-20s\n", "Student ID", "Name", "Roll No", "Class", "Marks", "Address");
+            while (true) {
+                try {
+                    Student student = (Student) ois.readObject();
+                    student.display();
+                } catch (EOFException e) { break; }
+            }
+        } catch (Exception e) { System.out.println("No records to display."); }
+    }
+
+    public static void clearRecords() {
+        if (new File(FILE_NAME).delete()) System.out.println("Records cleared.");
+        else System.out.println("No records found.");
+    }
+
+    public static void modifyRecord(String studentId, double newMarks) {
+        File tempFile = new File("temp.dat");
+        try (FileInputStream fis = new FileInputStream(FILE_NAME);
+             ObjectInputStream ois = new ObjectInputStream(fis);
+             FileOutputStream fos = new FileOutputStream(tempFile);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            boolean found = false;
+            while (true) {
+                try {
+                    Student student = (Student) ois.readObject();
+                    if (student.getStudentId().equals(studentId)) {
+                        student.setMarks(newMarks);
+                        found = true;
+                    }
+                    oos.writeObject(student);
+                } catch (EOFException e) { break; }
+            }
+            if (!found) System.out.println("Student not found.");
+        } catch (Exception e) { System.out.println("Error modifying record."); }
+        if (tempFile.renameTo(new File(FILE_NAME))) System.out.println("Record updated.");
+    }
+
+    public static void searchRecord(String studentId) {
+        try (FileInputStream fis = new FileInputStream(FILE_NAME);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            boolean found = false;
+            while (true) {
+                try {
+                    Student student = (Student) ois.readObject();
+                    if (student.getStudentId().equals(studentId)) {
+                        System.out.printf("%-10s %-15s %-8s %-8s %-6s %-20s\n", "Student ID", "Name", "Roll No", "Class", "Marks", "Address");
+                        student.display();
+                        found = true;
+                        break;
+                    }
+                } catch (EOFException e) { break; }
+            }
+            if (!found) System.out.println("Student not found.");
+        } catch (Exception e) { System.out.println("Error searching record."); }
+    }
+
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n1. Create Record  2. Display Records  3. Clear Records  4. Modify Record  5. Search Record  6. Exit");
+            switch (sc.nextInt()) {
+                case 1 -> {
+                    sc.nextLine();
+                    System.out.print("ID: "); String id = sc.nextLine();
+                    System.out.print("Name: "); String name = sc.nextLine();
+                    System.out.print("Roll No: "); int roll = sc.nextInt(); sc.nextLine();
+                    System.out.print("Class: "); String cls = sc.nextLine();
+                    System.out.print("Marks: "); double marks = sc.nextDouble(); sc.nextLine();
+                    System.out.print("Address: "); String addr = sc.nextLine();
+                    saveToFile(new Student(id, name, roll, cls, marks, addr));
+                }
+                case 2 -> displayRecords();
+                case 3 -> clearRecords();
+                case 4 -> {
+                    sc.nextLine();
+                    System.out.print("ID to modify: "); String id = sc.nextLine();
+                    System.out.print("New marks: "); double marks = sc.nextDouble();
+                    modifyRecord(id, marks);
+                }
+                case 5 -> {
+                    sc.nextLine();
+                    System.out.print("ID to search: "); searchRecord(sc.nextLine());
+                }
+                case 6 -> { sc.close(); System.exit(0); }
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+}

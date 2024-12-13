@@ -1,0 +1,114 @@
+abstract class Car {
+    public abstract void allocateAccessories();
+    public abstract void assembleBody();
+    public abstract void paintCar();
+    public abstract void finalMakeup();
+}
+
+class Hatchback extends Car {
+    @Override
+    public void allocateAccessories() {
+        System.out.println("Allocating accessories for Hatchback...");
+    }
+    @Override
+    public void assembleBody() {
+        System.out.println("Assembling Hatchback body...");
+    }
+    @Override
+    public void paintCar() {
+        System.out.println("Painting Hatchback...");
+    }
+    @Override
+    public void finalMakeup() {
+        System.out.println("Final makeup for Hatchback...");
+    }
+}
+
+class Sedan extends Car {
+    @Override
+    public void allocateAccessories() {
+        System.out.println("Allocating accessories for Sedan...");
+    }
+    @Override
+    public void assembleBody() {
+        System.out.println("Assembling Sedan body...");
+    }
+    @Override
+    public void paintCar() {
+        System.out.println("Painting Sedan...");
+    }
+    @Override
+    public void finalMakeup() {
+        System.out.println("Final makeup for Sedan...");
+    }
+}
+
+class SUV extends Car {
+    @Override
+    public void allocateAccessories() {
+        System.out.println("Allocating accessories for SUV...");
+    }
+    @Override
+    public void assembleBody() {
+        System.out.println("Assembling SUV body...");
+    }
+    @Override
+    public void paintCar() {
+        System.out.println("Painting SUV...");
+    }
+    @Override
+    public void finalMakeup() {
+        System.out.println("Final makeup for SUV...");
+    }
+}
+
+class CarFactory {
+    public static Car createCar(String type) {
+        if (type.equalsIgnoreCase("hatchback")) {
+            return new Hatchback();
+        } else if (type.equalsIgnoreCase("sedan")) {
+            return new Sedan();
+        } else if (type.equalsIgnoreCase("suv")) {
+            return new SUV();
+        } else {
+            return null;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car hatchback = CarFactory.createCar("hatchback");
+        if (hatchback != null) {
+            System.out.println("\nBuilding Hatchback Car:");
+            hatchback.allocateAccessories();
+            hatchback.assembleBody();
+            hatchback.paintCar();
+            hatchback.finalMakeup();
+        } else {
+            System.out.println("Invalid car type for Hatchback.");
+        }
+        
+        Car sedan = CarFactory.createCar("sedan");
+        if (sedan != null) {
+            System.out.println("\nBuilding Sedan Car:");
+            sedan.allocateAccessories();
+            sedan.assembleBody();
+            sedan.paintCar();
+            sedan.finalMakeup();
+        } else {
+            System.out.println("Invalid car type for Sedan.");
+        }
+        
+        Car suv = CarFactory.createCar("suv");
+        if (suv != null) {
+            System.out.println("\nBuilding SUV Car:");
+            suv.allocateAccessories();
+            suv.assembleBody();
+            suv.paintCar();
+            suv.finalMakeup();
+        } else {
+            System.out.println("Invalid car type for SUV.");
+        }
+    }
+}

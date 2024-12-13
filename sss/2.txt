@@ -1,0 +1,89 @@
+import java.util.Scanner;
+
+class Publication {
+    String title;
+    int price;
+    int copies;
+
+    public void getData(Scanner sc) {
+        System.out.print("Enter title: ");
+        title = sc.nextLine();
+        System.out.print("Enter price: ");
+        price = sc.nextInt();
+        System.out.print("Enter copies: ");
+        copies = sc.nextInt();
+        sc.nextLine(); // Consume newline left by nextInt()
+    }
+
+    public int saleCopy() {
+        return price * copies;
+    }
+}
+
+class Book extends Publication {
+    String author;
+
+    public void getAuthor(Scanner sc) {
+        System.out.print("Enter author: ");
+        author = sc.nextLine();
+    }
+
+    public void orderCopies(int numCopies) {
+        copies += numCopies;
+        System.out.println(numCopies + " copies of the book \"" + title + "\" ordered.");
+    }
+}
+
+class Magazine extends Publication {
+    String currentIssue;
+
+    public void getCurrentIssue(Scanner sc) {
+        System.out.print("Enter current issue: ");
+        currentIssue = sc.nextLine();
+    }
+
+    public void orderQty(int qty) {
+        copies += qty;
+        System.out.println(qty + " copies of the magazine \"" + title + "\" ordered.");
+    }
+
+    public void receiveIssue(Scanner sc) {
+        System.out.print("Enter new issue: ");
+        currentIssue = sc.nextLine();
+        System.out.println("New issue \"" + currentIssue + "\" of the magazine \"" + title + "\" received.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter details for Book:");
+        Book book1 = new Book();
+        book1.getData(sc);
+        book1.getAuthor(sc);
+
+        System.out.println("\nEnter details for Magazine:");
+        Magazine magazine1 = new Magazine();
+        magazine1.getData(sc);
+        magazine1.getCurrentIssue(sc);
+
+        System.out.print("\nEnter additional copies to order for the book: ");
+        int bookCopies = sc.nextInt();
+        book1.orderCopies(bookCopies);
+
+        System.out.print("\nEnter additional copies to order for the magazine: ");
+        int magazineCopies = sc.nextInt();
+        magazine1.orderQty(magazineCopies);
+
+        sc.nextLine(); // Consume newline left by nextInt()
+
+        System.out.println("\nUpdating magazine issue:");
+        magazine1.receiveIssue(sc);
+
+        int totalSales = book1.saleCopy() + magazine1.saleCopy();
+        System.out.println("\nTotal sales for the publication: ₹" + totalSales);
+
+        sc.close();
+    }
+}

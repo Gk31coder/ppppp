@@ -1,0 +1,84 @@
+import java.util.Scanner;
+
+class Complex {
+    Double real, imag;
+
+    void getdata() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Real part:");
+        real = sc.nextDouble();
+        System.out.println("Enter Imaginary part:");
+        imag = sc.nextDouble();
+    }
+
+    Complex add(Complex c1, Complex c2) {
+        Complex temp = new Complex();
+        temp.real = c1.real + c2.real;
+        temp.imag = c1.imag + c2.imag;
+        return temp;
+    }
+
+    Complex sub(Complex c1, Complex c2) {
+        Complex temp = new Complex();
+        temp.real = c1.real - c2.real;
+        temp.imag = c1.imag - c2.imag;
+        return temp;
+    }
+
+    Complex mul(Complex c1, Complex c2) {
+        Complex temp = new Complex();
+        temp.real = c1.real * c2.real - c1.imag * c2.imag;
+        temp.imag = c1.real * c2.imag + c1.imag * c2.real;
+        return temp;
+    }
+
+    Complex div(Complex c1, Complex c2) {
+        Complex temp = new Complex();
+        Double denominator = c2.real * c2.real + c2.imag * c2.imag;
+
+        if (denominator == 0) {
+            System.out.println("Division by zero is not allowed.");
+            return null;
+        }
+
+        temp.real = (c1.real * c2.real + c1.imag * c2.imag) / denominator;
+        temp.imag = (c1.imag * c2.real - c1.real * c2.imag) / denominator;
+        return temp;
+    }
+
+    void putdata() {
+        System.out.println(real + " + " + imag + "i");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Complex c1 = new Complex();
+        c1.getdata();
+        c1.putdata();
+
+        Complex c2 = new Complex();
+        c2.getdata();
+        c2.putdata();
+
+        Complex c3;
+
+        c3 = c1.add(c1, c2);
+        System.out.print("Sum: ");
+        c3.putdata();
+
+        c3 = c1.sub(c1, c2);
+        System.out.print("Difference: ");
+        c3.putdata();
+
+        c3 = c1.mul(c1, c2);
+        System.out.print("Product: ");
+        c3.putdata();
+
+        c3 = c1.div(c1, c2);
+        if (c3 != null) {
+            System.out.print("Quotient: ");
+            c3.putdata();
+        }
+    }
+}

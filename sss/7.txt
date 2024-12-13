@@ -1,0 +1,66 @@
+import java.util.Collection;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
+public class ElementCounter {
+
+    public static <T> int countElements(Collection<T> collection, Predicate<T> property) {
+        int count = 0;
+        for (T element : collection) {
+            if (property.test(element)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static boolean isEven(Integer number) {
+        return number % 2 == 0;
+    }
+
+    public static boolean isOdd(Integer number) {
+        return number % 2 != 0;
+    }
+
+    public static boolean isPrime(Integer number) {
+        if (number <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
+
+    public static boolean isPalindrome(String str) {
+        String reversed = new StringBuilder(str).reverse().toString();
+        return str.equals(reversed);
+    }
+
+    public static void main(String[] args) {
+        Collection<Integer> numbers = new ArrayList<>();
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(5);
+        numbers.add(10);
+        numbers.add(11);
+        numbers.add(22);
+
+        int evenCount = countElements(numbers, ElementCounter::isEven);
+        System.out.println("Even numbers count: " + evenCount);
+
+        int oddCount = countElements(numbers, ElementCounter::isOdd);
+        System.out.println("Odd numbers count: " + oddCount);
+
+        int primeCount = countElements(numbers, ElementCounter::isPrime);
+        System.out.println("Prime numbers count: " + primeCount);
+
+        Collection<String> words = new ArrayList<>();
+        words.add("madam");
+        words.add("level");
+        words.add("apple");
+        words.add("racecar");
+        words.add("java");
+
+        int palindromeCount = countElements(words, ElementCounter::isPalindrome);
+        System.out.println("Palindrome count: " + palindromeCount);
+    }
+}

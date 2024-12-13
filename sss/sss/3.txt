@@ -1,0 +1,190 @@
+[8:04 am, 13/12/2024] Gayatri Kakde: import java.util.Scanner;
+
+class Employee {
+    String empId;
+    String name, mobile, address, mail;
+
+    void get() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter employee ID:");
+        empId = sc.nextLine();
+        System.out.println("Enter name:");
+        name = sc.nextLine(); // Corrected variable name
+        System.out.println("Enter mobile number:");
+        mobile = sc.nextLine(); // Corrected variable name
+        System.out.println("Enter address:");
+        address = sc.nextLine(); // Corrected variable name
+        System.out.println("Enter mail ID:");
+        mail = sc.nextLine(); // Corrected variable name
+    }
+
+    void put() {
+        System.out.println("Employee ID: " + empId);
+        System.out.println("Name: " + name);
+        System.out.println("Mobile: " + mobile);
+        System.out.println("Address: " + address);
+        System.out.println("Mail ID: " + mail);
+        System.out.println("-----------------------------------------------------");
+    }
+}
+
+class Programmer extends Employee {
+    void salary() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Basic Salary of the Employee:");
+        double basic = scanner.nextDouble();
+        double hra = basic * 10 / 100;
+        double da = basic * 97 / 100;
+        double pf = basic * 12 / 100;
+        double scf = basic * 0.1 / 100;
+        double grossSalary = basic + hra + da;
+
+        super.put(); // Corrected 'Super' to 'super'
+        System.out.println("Employee Salary Breakdown for Programmer:");
+        System.out.println("Basic: " + basic);
+        System.out.println("HRA: " + hra);
+        System.out.println("DA: " + da);
+        System.out.println("PF: " + pf);
+        System.out.println("Staff Club Fund: " + scf);
+        System.out.println("Gross Salary: " + grossSalary);
+    }
+}
+
+class TeamLead extends Employee {
+    void salary() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Basic Salary of the Employee:");
+        double basic = scanner.nextDouble();
+        double hra = basic * 10 / 100;
+        double da = basic * 97 / 100;
+        double pf = basic * 12 / 100;
+        double scf = basic * 0.1 / 100;
+        double grossSalary = basic + hra + da;
+
+        super.put(); // Corrected 'Super' to 'super'
+        System.out.println("Employee Salary Breakdown for Team Lead:");
+        System.out.println("Basic: " + basic);
+        System.out.println("HRA: " + hra);
+        System.out.println("DA: " + da);
+        System.out.println("PF: " + pf);
+        System.out.println("Staff Club Fund: " + scf);
+        System.out.println("Gross Salary: " + grossSalary);
+    }
+}
+
+class ProjectManager extends Employee {
+    void salary() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Basic Salary of the Employee:");
+        double basic = scanner.nextDouble();
+        double hra = basic * 10 / 100;
+        double da = basic * 97 / 100;
+        double pf = basic * 12 / 100;
+        double scf = basic * 0.1 / 100;
+        double grossSalary = basic + hra + da;
+
+        super.put(); // Corrected 'Super' to 'super'
+        System.out.println("Employee Salary Breakdown for Project Manager:");
+        System.out.println("Basic: " + basic);
+        System.out.println("HRA: " + hra);
+        System.out.println("DA: " + da);
+        System.out.println("PF: " + pf);
+        System.out.println("Staff Club Fund: " + scf);
+        System.out.println("Gross Salary: " + grossSalary);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Programmer p = new Programmer();
+        p.get();
+        p.salary();
+
+        TeamLead t = new TeamLead();
+        t.get();
+        t.salary();
+
+        ProjectManager m = new ProjectManager();
+        m.get();
+        m.salary();
+    }
+}
+[8:05 am, 13/12/2024] Gayatri Kakde: 5 th
+[8:05 am, 13/12/2024] Gayatri Kakde: interface Vehicle {
+    void speedup();
+    void gearchange();
+    void applybrakes();
+}
+
+class Bicycle implements Vehicle {
+    @Override
+    public void speedup() {
+        System.out.println("Speed of bicycle can be changed by rider.");
+    }
+
+    @Override
+    public void gearchange() {
+        System.out.println("Bicycle does not have gears.");
+    }
+
+    @Override
+    public void applybrakes() {
+        System.out.println("We can apply brakes to the bicycle by pressing the brake.");
+    }
+}
+
+class Car implements Vehicle {
+    @Override
+    public void speedup() {
+        System.out.println("Car speed can be managed by accelerator.");
+    }
+
+    @Override
+    public void gearchange() {
+        System.out.println("Car has gears.");
+    }
+
+    @Override
+    public void applybrakes() {
+        System.out.println("Car can be stopped by applying brakes.");
+    }
+}
+
+class Bike implements Vehicle {
+    @Override
+    public void speedup() {
+        System.out.println("We can speed up the bike by applying the accelerator using hands.");
+    }
+
+    @Override
+    public void gearchange() {
+        System.out.println("We can change gears of the bike using hands.");
+    }
+
+    @Override
+    public void applybrakes() {
+        System.out.println("We can apply brakes to the bike by hands.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("----------------------------------BICYCLE------------------------------------");
+        Bicycle b1 = new Bicycle();
+        b1.speedup();
+        b1.gearchange();
+        b1.applybrakes();
+
+        System.out.println("----------------------------------CAR----------------------------------------");
+        Car b2 = new Car();
+        b2.speedup();
+        b2.gearchange();
+        b2.applybrakes();
+
+        System.out.println("----------------------------------BIKE---------------------------------------");
+        Bike b3 = new Bike();
+        b3.speedup();
+        b3.gearchange();
+        b3.applybrakes();
+    }
+}
